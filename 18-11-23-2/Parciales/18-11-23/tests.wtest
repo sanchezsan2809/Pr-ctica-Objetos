@@ -1,0 +1,81 @@
+import musicosEInstrumentos.*
+import bandas.*
+import showMustGoOn.*
+
+describe "Tests de músicos"{
+
+    test "Calidad de Taylor"{
+        assert.equals(31, taylor.calidad())
+    }
+
+    test "Calidad de Maikel"{
+        assert.equals(26, maikel.calidad())
+    }
+
+    test "Calidad de Riorio"{
+        assert.equals(32, riorio.calidad())
+    }
+
+    test "Calidad de Hell Music"{
+        assert.equals(26, hellMusic.calidad())
+    }
+
+    test "Calidad de Truquillo"{
+        assert.equals(22, truquillo.calidad())
+    }
+
+    test "Calidad de Emilia Viernes"{
+        assert.equals(26, emiliaViernes.calidad())
+    }
+
+    test "Calidad de Rengo Estar"{
+        assert.equals(30, rengoEstar.calidad())
+    }
+
+}
+
+describe "Tests de banda"{
+    const bandaMetalera = new Banda(integrantes = #{truquillo, riorio})
+    const bandaPopera = new Banda(integrantes = #{taylor, maikel, rengoEstar})
+    test "La banda de Riorio y Truquillo toca metal"{
+        assert.that(bandaMetalera.conoceEstilo("metal"))
+    }
+
+    test "Los estilos de la banda de Riorio y Truquillo es sólo metal"{
+        assert.equals(#{"metal"}, bandaMetalera.estilos())
+    }
+
+    test "Riorio no puede entrar a la banda de Taylor, Maikel y Rengo Estar"{
+        assert.throwsExceptionWithMessage("El integrante no toca estilos en común",{bandaPopera.sumarIntegrante(riorio)})
+    }
+
+    test "La calidad de la banda de Riorio y Truquillo"{
+        assert.equals(41, bandaMetalera.calidad())
+    }
+
+    test "La calidad de la banda de Taylor, Maikel y Rengo Estar"{
+        assert.equals(42, bandaPopera.calidad())
+    }
+    
+    test "El mejor integrante de la banda popera es Taylor"{
+        assert.equals(taylor, bandaPopera.mejorIntegrante())
+    }
+}
+
+describe "Tests de shows"{
+    const bandaMetalera = new Banda(integrantes = #{truquillo, riorio})
+    const bandaPopera = new Banda(integrantes = #{taylor, maikel, rengoEstar})
+    test "Show de pop"{
+    const showPopero = new Recital(
+        duracion = 80,
+        artista = bandaPopera,
+        artistaInvitado = emiliaViernes,
+        cantidadGente = 200000
+        )
+    showPopero.iniciarRecital()
+    assert.equals(84000, bandaPopera.groupies())
+    assert.equals(42000, taylor.groupies())
+    assert.that(bandaPopera.estaPegado())
+    }
+    
+}
