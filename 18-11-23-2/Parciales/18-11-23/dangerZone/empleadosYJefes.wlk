@@ -29,6 +29,20 @@ class Empleado{
     }
 }
 
+class Equipo{
+    const integrantes
+    method completarMisionGrupal(mision) {
+        self.validarHabilidadesMision(mision)
+        integrantes.forEach({integrante => integrante.completarMisionGrupal(mision)})
+    }
+    method validarHabilidadesMision(mision){
+        if(!integrantes.any({integrante => integrante.tieneHabilidadesMision(mision)})){
+            throw new Exception(message = "No se puede completar la misión por falta de habilidades")
+        }
+    } 
+
+}
+
 class Espia inherits Empleado{
     override method saludCritica() = 15
     method aprenderHabilidad(habilidad) = habilidades.add(habilidad)
@@ -54,19 +68,6 @@ class Oficinista inherits Empleado{
     method puedeSerEspia() = estrellas == 3
 }
 
-class Equipo{
-    const integrantes
-    method completarMision(mision) {
-        self.validarHabilidadesMision(mision)
-        integrantes.forEach({integrante => integrante.completarMisionGrupal(mision)})
-    }
-    method validarHabilidadesMision(mision){
-        if(!integrantes.any({integrante => integrante.tieneHabilidadesMision(mision)})){
-            throw new Exception(message = "No se puede completar la misión por falta de habilidades")
-        }
-    } 
-
-}
 
 class Mision{
     const property habilidadesRequeridas
